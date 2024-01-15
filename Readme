@@ -1,0 +1,6 @@
+First configure .env file set next variable values
+DB_HOST, DB_PORT, DB_PASS,DB_USER,DB_NAME,PORT
+
+Then run next commands: 
+make swag
+make run
