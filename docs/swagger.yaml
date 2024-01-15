@@ -1,0 +1,247 @@
+definitions:
+  controller.Response:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Person:
+    properties:
+      Name:
+        type: string
+      Patronymic:
+        type: string
+      Surname:
+        type: string
+      age:
+        type: integer
+      gender:
+        type: string
+      id:
+        type: integer
+      nation:
+        type: string
+    type: object
+  models.PersonRequest:
+    properties:
+      name:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+  models.PersonUpdateRequest:
+    properties:
+      age:
+        type: integer
+      gender:
+        type: string
+      name:
+        type: string
+      nation:
+        type: string
+      patronymic:
+        type: string
+      surname:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server CRM server.
+  title: Golan tz documentation
+  version: "1.0"
+paths:
+  /api/person:
+    get:
+      consumes:
+      - application/json
+      description: this api is to get person by filter
+      parameters:
+      - in: query
+        name: age
+        type: integer
+      - in: query
+        name: gender
+        type: string
+      - in: query
+        name: multiSearch
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: nation
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/models.Person'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Get person
+      tags:
+      - Person
+  /api/person/:
+    post:
+      consumes:
+      - application/json
+      description: this api is create new person
+      parameters:
+      - description: data body
+        in: body
+        name: data
+        schema:
+          $ref: '#/definitions/models.PersonRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Person'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Create new person
+      tags:
+      - Person
+  /api/person/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: this api is to delete person
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Delete person
+      tags:
+      - Person
+    get:
+      consumes:
+      - application/json
+      description: this api is to get person by id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Person'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Get person by id
+      tags:
+      - Person
+    put:
+      consumes:
+      - application/json
+      description: this api is Update person
+      parameters:
+      - description: update id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: data body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.PersonUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Person'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/controller.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.Response'
+      summary: Update person
+      tags:
+      - Person
+securityDefinitions:
+  BearerAuth:
+    description: AUTH.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
